@@ -588,6 +588,11 @@ def print_output(
 
 
 def main() -> int:
+    # Load .env in a robust way:
+    # 1) Skill-local .env (relative to this script): <skill_root>/.env
+    # 2) Current working directory .env (allows override in ad-hoc runs)
+    script_env = (Path(__file__).resolve().parent.parent / ".env")
+    load_local_dotenv(script_env)
     load_local_dotenv(Path(".env"))
 
     parser = argparse.ArgumentParser(
